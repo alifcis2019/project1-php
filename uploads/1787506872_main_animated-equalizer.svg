@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="13" height="12" viewBox="0 0 13 12"
+     fill="currentColor" color="#111827"
+     role="img" aria-labelledby="title desc">
+  <title id="title">Animated equalizer</title>
+  <desc id="desc">Three narrow rounded bars bounce from five to twelve pixels tall with staggered timing.</desc>
+
+  <rect x="0" y="7" width="3" height="5" rx="1.5" opacity="0.5">
+    <animate attributeName="y" values="7;0;7" dur="1s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+    <animate attributeName="height" values="5;12;5" dur="1s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+    <animate attributeName="opacity" values="0.5;1;0.5" dur="1s" begin="0s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+  </rect>
+
+  <rect x="5" y="7" width="3" height="5" rx="1.5" opacity="0.5">
+    <animate attributeName="y" values="7;0;7" dur="1s" begin="0.18s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+    <animate attributeName="height" values="5;12;5" dur="1s" begin="0.18s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+    <animate attributeName="opacity" values="0.5;1;0.5" dur="1s" begin="0.18s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+  </rect>
+
+  <rect x="10" y="7" width="3" height="5" rx="1.5" opacity="0.5">
+    <animate attributeName="y" values="7;0;7" dur="1s" begin="0.36s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+    <animate attributeName="height" values="5;12;5" dur="1s" begin="0.36s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+    <animate attributeName="opacity" values="0.5;1;0.5" dur="1s" begin="0.36s" repeatCount="indefinite" calcMode="spline" keyTimes="0;0.5;1" keySplines="0.42 0 0.58 1;0.42 0 0.58 1"/>
+  </rect>
+</svg>

@@ -1,0 +1,30 @@
+[
+    {
+        "id": 1,
+        "description": "123456",
+        "gallery": [
+            "uploads\/1787507213_gallery_0_images.jpeg"
+        ],
+        "stockStatus": "In Stock",
+        "hasOptions": true,
+        "options": {
+            "Notice": [
+                "To be configured later"
+            ]
+        },
+        "variants": null,
+        "category": "Clothing"
+    },
+    {
+        "id": 2,
+        "description": "Magna qui et repelle",
+        "gallery": [
+            "https:\/\/dummyimage.com\/600x600\/dee2e6\/6c757d.jpg"
+        ],
+        "stockStatus": "In Stock",
+        "hasOptions": false,
+        "options": null,
+        "variants": null,
+        "category": "Clothing"
+    }
+]
