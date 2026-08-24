@@ -55,46 +55,58 @@ $totalItems = array_sum($cartItems);
 
             <!-- User Menu & Mobile Toggle -->
             <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                <?php if (isLoggedIn()) : ?>
+                <?php if (isLoggedIn()) : 
+                    $userInitial = strtoupper(substr($_SESSION['user']['name'] ?? $_SESSION['user']['email'] ?? 'U', 0, 1));
+                ?>
                 <button type="button"
-                    class="flex text-sm bg-white rounded-full md:me-0 focus:ring-4 focus:ring-gray-200"
+                    class="flex items-center text-sm bg-white rounded-full focus:ring-4 focus:ring-gray-200"
                     id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
                     data-dropdown-placement="bottom">
                     <span class="sr-only">Open user menu</span>
                     <div
-                        class="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold">
-                        U
+                        class="w-8 h-8 rounded-full bg-primary-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">
+                        <?= $userInitial ?>
                     </div>
                 </button>
 
-                <span class="hidden md:inline-block text-gray-900 font-medium ms-2">
-                    <!-- Dropdown menu -->
-                    <div class="z-50 hidden bg-white border border-gray-200 rounded-lg shadow-lg w-44"
-                        id="user-dropdown">
-                        <div class="px-4 py-3 text-sm border-b border-gray-200">
-                            <span class="block text-gray-500 truncate">
-                                <?= $_SESSION['user']['email']; ?>
-                            </span>
-                        </div>
-                        <ul class="p-2 text-sm text-gray-500 font-medium" aria-labelledby="user-menu-button">
-                            <li>
-                                <a href="profile.php"
-                                    class="inline-flex items-center w-full p-2 hover:bg-gray-100 hover:text-gray-900 rounded-md">Profile</a>
-                            </li>
-                            <li>
-                                <!-- You can point this to a logout script -->
-                                <a href="logout.php"
-                                    class="inline-flex items-center w-full p-2 hover:bg-gray-100 hover:text-gray-900 rounded-md border-t border-gray-100 mt-1 pt-3">Sign
-                                    out</a>
-                            </li>
-                        </ul>
+                <!-- Dropdown menu -->
+                <div class="z-50 hidden bg-white border border-gray-200 rounded-xl shadow-xl w-48 py-1"
+                    id="user-dropdown">
+                    <div class="px-4 py-3 text-sm border-b border-gray-100">
+                        <span class="block font-semibold text-gray-900 truncate">
+                            <?= htmlspecialchars($_SESSION['user']['name'] ?? 'User') ?>
+                        </span>
+                        <span class="block text-xs text-gray-500 truncate mt-0.5">
+                            <?= htmlspecialchars($_SESSION['user']['email']) ?>
+                        </span>
                     </div>
-                    <?php else : ?>
-                    <a href="login.php"
-                        class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 transition-colors duration-200 shadow-sm">
-                        Login
-                    </a>
-                    <?php endif; ?>
+                    <ul class="p-1 text-sm text-gray-700 font-medium" aria-labelledby="user-menu-button">
+                        <li>
+                            <a href="profile.php"
+                                class="flex items-center gap-2 w-full p-2.5 hover:bg-gray-50 hover:text-primary-600 rounded-lg transition-colors">
+                                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                                </svg>
+                                My Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="logout.php"
+                                class="flex items-center gap-2 w-full p-2.5 text-red-600 hover:bg-red-50 rounded-lg border-t border-gray-100 mt-1 transition-colors">
+                                <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                                </svg>
+                                Sign out
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <?php else : ?>
+                <a href="login.php"
+                    class="inline-flex items-center justify-center px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-200 transition-colors duration-200 shadow-sm">
+                    Login
+                </a>
+                <?php endif; ?>
                     <!-- Mobile Menu Hamburger -->
                     <button data-collapse-toggle="navbar-user" type="button"
                         class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-200"

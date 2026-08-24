@@ -19,69 +19,76 @@ $products = get_products();
 
             <?php foreach ($products as $product): ?>
                 <!-- Product Card -->
-                <div
-                    class="relative bg-white border border-slate-200 rounded-xl shadow-sm hover:shadow-md transition-shadow overflow-hidden group flex flex-col">
+                <div class="group bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-xl hover:border-slate-300 transition-all duration-300 overflow-hidden flex flex-col">
 
                     <!-- Sale Badge (Conditional) -->
-                    <?php if (isset($product['isSale']) && $product['isSale']): ?>
-                        <span class="absolute top-3 right-3 bg-slate-900 text-white text-xs font-bold px-2.5 py-1 rounded z-10">
-                            Sale
-                        </span>
-                    <?php endif; ?>
+                    <div class="relative bg-slate-100 aspect-[4/3] overflow-hidden">
+                        <?php if (isset($product['isSale']) && $product['isSale']): ?>
+                            <span class="absolute top-3 start-3 bg-red-600 text-white text-xs font-extrabold px-2.5 py-1 rounded-lg z-10 shadow-sm">
+                                SALE
+                            </span>
+                        <?php endif; ?>
 
-                    <!-- Product Image -->
-                    <a href="product.php?id=<?= $product['id'] ?>" class="block overflow-hidden bg-slate-100 aspect-[4/3]">
-                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                            src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
-                    </a>
+                        <!-- Product Image -->
+                        <a href="product.php?id=<?= $product['id'] ?>" class="block w-full h-full">
+                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                src="<?= htmlspecialchars($product['image']) ?>" alt="<?= htmlspecialchars($product['name']) ?>">
+                        </a>
+                    </div>
 
                     <!-- Product Details -->
-                    <div class="p-5 text-center flex-1 flex flex-col">
+                    <div class="p-5 flex-1 flex flex-col">
+
+                        <!-- Star Rating (Conditional) -->
+                        <div class="flex items-center gap-1 mb-2">
+                            <?php 
+                            $rating = (int)($product['rating'] ?? 0);
+                            for ($i = 0; $i < 5; $i++): 
+                            ?>
+                                <svg class="w-3.5 h-3.5 <?= $i < $rating ? 'text-yellow-400' : 'text-slate-200' ?>" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                            <?php endfor; ?>
+                            <?php if ($rating > 0): ?>
+                                <span class="text-xs text-slate-400 ms-1">(<?= $rating ?>.0)</span>
+                            <?php endif; ?>
+                        </div>
 
                         <!-- Title -->
-                        <a href="product.php?id=<?= $product['id'] ?>">
-                            <h5 class="text-lg font-bold text-slate-900 mb-1 hover:text-primary-600 transition-colors">
+                        <a href="product.php?id=<?= $product['id'] ?>" class="block mb-2">
+                            <h5 class="text-base font-bold text-slate-900 group-hover:text-primary-600 transition-colors line-clamp-1">
                                 <?= htmlspecialchars($product['name']) ?>
                             </h5>
                         </a>
 
-                        <!-- Star Rating (Conditional) -->
-                        <?php if (isset($product['rating']) && $product['rating'] > 0): ?>
-                            <div class="flex items-center justify-center gap-1 mb-2">
-                                <?php for ($i = 0; $i < $product['rating']; $i++): ?>
-                                    <svg class="w-4 h-4 text-yellow-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="currentColor" viewBox="0 0 22 20">
-                                        <path
-                                            d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z" />
-                                    </svg>
-                                <?php endfor; ?>
-                            </div>
-                        <?php else: ?>
-                            <!-- Spacer to keep cards aligned if there are no stars -->
-                            <div class="h-6 mb-2"></div>
-                        <?php endif; ?>
-
                         <!-- Price -->
-                        <div class="mb-5 mt-auto">
+                        <div class="flex items-center gap-2 mb-4 mt-auto">
+                            <span class="text-lg font-extrabold text-slate-900"><?= htmlspecialchars($product['priceDisplay']) ?></span>
                             <?php if (isset($product['originalPriceDisplay']) && $product['originalPriceDisplay']): ?>
-                                <span
-                                    class="text-sm text-slate-400 line-through me-1.5"><?= htmlspecialchars($product['originalPriceDisplay']) ?></span>
+                                <span class="text-xs text-slate-400 line-through"><?= htmlspecialchars($product['originalPriceDisplay']) ?></span>
                             <?php endif; ?>
-                            <span class="text-slate-900 font-medium"><?= htmlspecialchars($product['priceDisplay']) ?></span>
                         </div>
 
-                        <!-- Action Button -->
-                        <?php if (isset($product['buttonType']) && $product['buttonType'] === 'options'): ?>
+                        <!-- Action Buttons -->
+                        <div class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
                             <a href="product.php?id=<?= $product['id'] ?>"
-                                class="mt-auto inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-slate-900 bg-transparent border border-slate-900 rounded-lg hover:bg-slate-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-slate-200 transition-colors">
-                                View options
+                                class="flex items-center justify-center px-3 py-2 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-xl transition-colors">
+                                Details
                             </a>
-                        <?php else: ?>
-                            <a href="../actions/add-to-cart.php?id=<?= $product['id'] ?>"
-                                class="mt-auto inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-slate-900 bg-transparent border border-slate-900 rounded-lg hover:bg-slate-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-slate-200 transition-colors">
-                                Add to cart
-                            </a>
-                        <?php endif; ?>
+
+                            <?php if (isset($product['buttonType']) && $product['buttonType'] === 'options'): ?>
+                                <a href="product.php?id=<?= $product['id'] ?>"
+                                    class="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-white bg-primary-600 hover:bg-primary-700 rounded-xl transition-colors">
+                                    Options
+                                </a>
+                            <?php else: ?>
+                                <a href="actions/add-to-cart.php?id=<?= $product['id'] ?>"
+                                    class="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-white bg-primary-600 hover:bg-primary-700 rounded-xl transition-colors">
+                                    Add to cart
+                                </a>
+                            <?php endif; ?>
+                        </div>
+
                     </div>
                 </div>
             <?php endforeach; ?>
