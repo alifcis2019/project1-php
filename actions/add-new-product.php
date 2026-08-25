@@ -1,6 +1,12 @@
 <?php
 include_once '../helper/functions.php';
 
+if (!is_admin()) {
+    set_flash_message('error', 'Access denied. Only administrators can create products.');
+    header('Location: ../index.php');
+    exit;
+}
+
 $uploadDir = '../uploads/';
 $productsFile = '../database/products.json';
 $detailsFile = '../database/product_details.json';

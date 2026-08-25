@@ -4,7 +4,7 @@
         <p class="text-sm text-slate-500 mt-1">Fill in the information below to add a new product to your catalog.</p>
     </div>
 
-    <form action="../actions/add-new-product.php" method="POST" enctype="multipart/form-data">
+    <form action="actions/add-new-product.php" method="POST" enctype="multipart/form-data">
 
         <h3 class="text-lg font-semibold text-slate-800 mb-4">1. Basic Information</h3>
         <div class="grid gap-6 mb-6 md:grid-cols-2">

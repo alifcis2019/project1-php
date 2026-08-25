@@ -1,1 +1,8 @@
-[]
+[
+    {
+        "id": "6a8cf3dd73865",
+        "email": "admin@admin.com",
+        "password": "$2y$10$zQPdWlpiDucfG\/JLMnNUN.hg4I\/nlQRU2M.nWgrOTrt1LzwnXTKFq",
+        "role": "admin"
+    }
+]

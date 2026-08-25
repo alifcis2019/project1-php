@@ -8,10 +8,14 @@ $currentPage = $currentPage ?? 'Home';
 $navLinks = [
     ['title' => 'Home', 'url' => 'index.php', 'active' => $currentPage === 'Home'],
     ['title' => 'Products', 'url' => 'products.php', 'active' => $currentPage === 'Products'],
-    ['title' => 'Create Product', 'url' => 'create-product.php', 'active' => $currentPage === 'Create Product'],
-    ['title' => 'About', 'url' => 'about.php', 'active' => $currentPage === 'About'],
-    ['title' => 'Contact', 'url' => 'contact.php', 'active' => $currentPage === 'Contact'],
 ];
+
+if (is_admin()) {
+    $navLinks[] = ['title' => 'Create Product', 'url' => 'create-product.php', 'active' => $currentPage === 'Create Product'];
+}
+
+$navLinks[] = ['title' => 'About', 'url' => 'about.php', 'active' => $currentPage === 'About'];
+$navLinks[] = ['title' => 'Contact', 'url' => 'contact.php', 'active' => $currentPage === 'Contact'];
 
 // Ensure functions are loaded and session is started
 include_once './helper/functions.php';

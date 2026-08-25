@@ -33,7 +33,7 @@ function get_flash_messages()
 
 function is_admin()
 {
-    if (isLoggedIn()) {
+    if (isLoggedIn() && isset($_SESSION['user']['role'])) {
         return $_SESSION['user']['role'] === 'admin';
     }
     return false;
@@ -41,7 +41,7 @@ function is_admin()
 
 function is_user()
 {
-    if (isLoggedIn()) {
+    if (isLoggedIn() && isset($_SESSION['user']['role'])) {
         return $_SESSION['user']['role'] === 'user';
     }
     return false;

@@ -41,8 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $users[] = [
             'id' => uniqid(),
             'email' => $email,
-            'password' => $hashed_password
-
+            'password' => $hashed_password,
+            'role' => 'user'
         ];
 
         file_put_contents('./database/users.json', json_encode($users, JSON_PRETTY_PRINT));
