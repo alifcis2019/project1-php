@@ -230,7 +230,7 @@ foreach ($detailsData as $d) {
             </div>
         </div>
     </div>
-<?php elseif (!$exists): ?>
+<?php elseif (!$exists || !$exists_detail): ?>
     <div class="flex items-center justify-center min-h-[60vh] px-4">
         <div class="text-center max-w-screen-sm mx-auto py-16">
             <h1 class="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl text-primary-600">404</h1>
