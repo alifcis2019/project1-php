@@ -113,6 +113,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         file_put_contents('./database/orders.json', json_encode($orders, JSON_PRETTY_PRINT));
 
         unset($_SESSION['cart']);
+        if (isLoggedIn()) {
+            save_user_cart($_SESSION['user']['id'], []);
+        }
 
         set_flash_message('success', 'Order placed successfully! Order ID: ' . $orderId);
         header('Location: index.php');

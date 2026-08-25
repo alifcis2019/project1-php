@@ -69,7 +69,34 @@ function isLoggedIn()
 
 function logoutUser()
 {
+    if (isLoggedIn()) {
+        $userId = $_SESSION['user']['id'];
+        save_user_cart($userId, $_SESSION['cart'] ?? []);
+    }
     unset($_SESSION['user']);
+    unset($_SESSION['cart']);
+}
+
+function get_carts_file()
+{
+    return file_exists('./database/carts.json') ? './database/carts.json' : '../database/carts.json';
+}
+
+function save_user_cart($userId, $cart)
+{
+    $file = get_carts_file();
+    $carts = file_exists($file) ? json_decode(file_get_contents($file), true) : [];
+    if (!is_array($carts)) $carts = [];
+    $carts[$userId] = $cart;
+    file_put_contents($file, json_encode($carts, JSON_PRETTY_PRINT));
+}
+
+function get_user_saved_cart($userId)
+{
+    $file = get_carts_file();
+    if (!file_exists($file)) return [];
+    $carts = json_decode(file_get_contents($file), true) ?: [];
+    return $carts[$userId] ?? [];
 }
 
 function get_products()

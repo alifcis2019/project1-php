@@ -22,6 +22,10 @@ function add_to_cart($id, $quantity = 1)
         $_SESSION['cart'][$id] = $quantity;
         set_flash_message('success', 'Product added to cart successfully!');
     }
+
+    if (isLoggedIn()) {
+        save_user_cart($_SESSION['user']['id'], $_SESSION['cart']);
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

@@ -25,6 +25,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user'] = $user;
+
+            // Load and merge user cart
+            $savedCart = get_user_saved_cart($user['id']);
+            $guestCart = $_SESSION['cart'] ?? [];
+
+            foreach ($guestCart as $productId => $qty) {
+                if (isset($savedCart[$productId])) {
+                    $savedCart[$productId] += $qty;
+                } else {
+                    $savedCart[$productId] = $qty;
+                }
+            }
+
+            $_SESSION['cart'] = $savedCart;
+            save_user_cart($user['id'], $_SESSION['cart']);
+
             set_flash_message('success', 'Login successful');
             header('Location: index.php');
             exit;

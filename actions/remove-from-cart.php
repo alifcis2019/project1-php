@@ -12,6 +12,11 @@ function remove_from_cart($id)
     } else {
         // remove the product from the cart
         unset($_SESSION['cart'][$id]);
+        
+        if (isLoggedIn()) {
+            save_user_cart($_SESSION['user']['id'], $_SESSION['cart']);
+        }
+
         // Optional: Add a success toast here!
         set_flash_message('success', 'Product removed from cart successfully!');
     }

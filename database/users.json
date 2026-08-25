@@ -4,5 +4,15 @@
         "email": "admin@admin.com",
         "password": "$2y$10$zQPdWlpiDucfG\/JLMnNUN.hg4I\/nlQRU2M.nWgrOTrt1LzwnXTKFq",
         "role": "admin"
+    },
+    {
+        "id": "6a8cf51312e30",
+        "email": "user@user.com",
+        "password": "$2y$10$hz0bcdxxJCofDVYgUuavFu1uiiF5pWeU7bN1J7OOqCctylX4GPtXy",
+        "role": "user",
+        "name": "user",
+        "phone": "01110548609",
+        "address": "Qanatir elkhairia",
+        "city": "Qalubia"
     }
 ]
