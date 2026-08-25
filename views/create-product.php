@@ -54,7 +54,6 @@
             </div>
             <div>
                 <label for="stock_status" class="block mb-2 text-sm font-medium text-slate-900">Stock Status</label>
-                <!-- إضافة name="product[stock_status]" -->
                 <select id="stock_status" name="product[stock_status]"
                     class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5">
                     <option value="In Stock">In Stock</option>
