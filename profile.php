@@ -10,7 +10,7 @@ if (!isLoggedIn()) {
 
 $user = $_SESSION['user'];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
     $action = $_POST['action'] ?? '';
 
     if ($action === 'update_profile') {
@@ -91,6 +91,12 @@ if (file_exists('./database/orders.json')) {
         }
     }
     $userOrders = array_reverse($userOrders);
+}
+
+$adminMessages = [];
+if (is_admin() && file_exists('./database/messages.json')) {
+    $adminMessages = json_decode(file_get_contents('./database/messages.json'), true) ?: [];
+    $adminMessages = array_reverse($adminMessages);
 }
 
 include './inc/header.php';

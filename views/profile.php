@@ -17,6 +17,9 @@ foreach ($userOrders as $ord) {
     $totalSpent += $priceNum;
 }
 
+$adminMessages = $adminMessages ?? [];
+$totalMessagesCount = count($adminMessages);
+
 $initials = strtoupper(substr($userName, 0, 2));
 ?>
 
@@ -63,6 +66,12 @@ $initials = strtoupper(substr($userName, 0, 2));
                 <span class="block text-2xl font-extrabold text-primary-600">$<?= number_format($totalSpent, 2) ?></span>
                 <span class="text-xs text-slate-500 font-medium">Total Spent</span>
             </div>
+            <?php if (is_admin()): ?>
+                <div class="text-center px-4 py-2 bg-blue-50 rounded-xl border border-blue-100">
+                    <span class="block text-2xl font-extrabold text-blue-600"><?= $totalMessagesCount ?></span>
+                    <span class="text-xs text-blue-600 font-medium">Messages</span>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -88,6 +97,17 @@ $initials = strtoupper(substr($userName, 0, 2));
                             <?php endif; ?>
                         </button>
                     </li>
+                    <?php if (is_admin()): ?>
+                        <li>
+                            <button class="flex items-center gap-3 w-full p-3 text-sm rounded-xl text-left text-slate-600 hover:bg-slate-50"
+                                id="messages-tab-btn" data-tabs-target="#messages-tab" type="button" role="tab" aria-controls="messages-tab" aria-selected="false">
+                                <span>Customer Messages</span>
+                                <?php if ($totalMessagesCount > 0): ?>
+                                    <span class="ms-auto bg-blue-100 text-blue-700 text-xs font-bold px-2 py-0.5 rounded-full"><?= $totalMessagesCount ?></span>
+                                <?php endif; ?>
+                            </button>
+                        </li>
+                    <?php endif; ?>
                     <li>
                         <button class="flex items-center gap-3 w-full p-3 text-sm rounded-xl text-left text-slate-600 hover:bg-slate-50"
                             id="security-tab-btn" data-tabs-target="#security-tab" type="button" role="tab" aria-controls="security-tab" aria-selected="false">
@@ -221,6 +241,60 @@ $initials = strtoupper(substr($userName, 0, 2));
                     <?php endif; ?>
                 </div>
             </div>
+
+            <?php if (is_admin()): ?>
+                <!-- TAB: Customer Messages (Admin Only) -->
+                <div class="hidden" id="messages-tab" role="tabpanel" aria-labelledby="messages-tab-btn">
+                    <div class="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
+                        <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100">
+                            <div>
+                                <h2 class="text-xl font-bold text-slate-900">Customer Messages</h2>
+                                <p class="text-xs text-slate-500 mt-1">Inquiries submitted through the Contact Us page</p>
+                            </div>
+                            <span class="bg-slate-100 text-slate-700 text-xs font-semibold px-3 py-1 rounded-full">
+                                Total: <?= $totalMessagesCount ?>
+                            </span>
+                        </div>
+
+                        <?php if (empty($adminMessages)): ?>
+                            <div class="text-center py-12">
+                                <div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl">
+                                    <i class="fa-regular fa-envelope"></i>
+                                </div>
+                                <p class="text-sm font-medium text-slate-900 mb-1">No messages yet</p>
+                                <p class="text-xs text-slate-500">Customer inquiries will appear here.</p>
+                            </div>
+                        <?php else: ?>
+                            <div class="space-y-4">
+                                <?php foreach ($adminMessages as $msg): ?>
+                                    <div class="border border-slate-200 rounded-xl p-5 hover:border-slate-300 transition-colors bg-slate-50/50">
+                                        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-bold text-slate-900 text-sm"><?= htmlspecialchars($msg['name'] ?? 'Guest') ?></span>
+                                                <span class="text-slate-300">&bull;</span>
+                                                <a href="mailto:<?= htmlspecialchars($msg['email'] ?? '') ?>" class="text-xs text-primary-600 hover:underline">
+                                                    <?= htmlspecialchars($msg['email'] ?? '') ?>
+                                                </a>
+                                            </div>
+                                            <span class="text-xs text-slate-400">
+                                                <i class="fa-regular fa-clock me-1"></i><?= htmlspecialchars($msg['created_at'] ?? '') ?>
+                                            </span>
+                                        </div>
+                                        <div class="mb-3">
+                                            <span class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">
+                                                <?= htmlspecialchars($msg['subject'] ?? 'General Inquiry') ?>
+                                            </span>
+                                        </div>
+                                        <div class="text-sm text-slate-700 bg-white p-4 rounded-xl border border-slate-200 leading-relaxed whitespace-pre-line">
+                                            <?= htmlspecialchars($msg['message'] ?? '') ?>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
 
             <!-- TAB 3: Password -->
             <div class="hidden" id="security-tab" role="tabpanel" aria-labelledby="security-tab-btn">
