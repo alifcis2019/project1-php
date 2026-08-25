@@ -18,12 +18,20 @@ $products = get_products();
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
             <?php foreach ($products as $product): ?>
+                <?php 
+                $detail = get_product_detail($product['id']);
+                $isOutOfStock = ($detail && isset($detail['stockStatus']) && $detail['stockStatus'] === 'Out of Stock');
+                ?>
                 <!-- Product Card -->
                 <div class="group bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-xl hover:border-slate-300 transition-all duration-300 overflow-hidden flex flex-col">
 
-                    <!-- Sale Badge (Conditional) -->
+                    <!-- Sale / Out of Stock Badge -->
                     <div class="relative bg-slate-100 aspect-[4/3] overflow-hidden">
-                        <?php if (isset($product['isSale']) && $product['isSale']): ?>
+                        <?php if ($isOutOfStock): ?>
+                            <span class="absolute top-3 start-3 bg-slate-900 text-white text-xs font-bold px-2.5 py-1 rounded-lg z-10 shadow-sm">
+                                Out of Stock
+                            </span>
+                        <?php elseif (isset($product['isSale']) && $product['isSale']): ?>
                             <span class="absolute top-3 start-3 bg-red-600 text-white text-xs font-extrabold px-2.5 py-1 rounded-lg z-10 shadow-sm">
                                 SALE
                             </span>
@@ -76,16 +84,25 @@ $products = get_products();
                                 Details
                             </a>
 
-                            <?php if (isset($product['buttonType']) && $product['buttonType'] === 'options'): ?>
+                            <?php if ($isOutOfStock): ?>
+                                <button type="button" disabled
+                                    class="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-400 bg-slate-100 rounded-xl cursor-not-allowed">
+                                    Out of stock
+                                </button>
+                            <?php elseif (isset($product['buttonType']) && $product['buttonType'] === 'options'): ?>
                                 <a href="product.php?id=<?= $product['id'] ?>"
                                     class="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-white bg-primary-600 hover:bg-primary-700 rounded-xl transition-colors">
                                     Options
                                 </a>
                             <?php else: ?>
-                                <a href="actions/add-to-cart.php?id=<?= $product['id'] ?>"
-                                    class="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-white bg-primary-600 hover:bg-primary-700 rounded-xl transition-colors">
-                                    Add to cart
-                                </a>
+                                <form action="actions/add-to-cart.php" method="POST" class="w-full">
+                                    <input type="hidden" name="id" value="<?= $product['id'] ?>">
+                                    <input type="hidden" name="quantity" value="1">
+                                    <button type="submit"
+                                        class="w-full h-full flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-white bg-primary-600 hover:bg-primary-700 rounded-xl transition-colors">
+                                        Add to cart
+                                    </button>
+                                </form>
                             <?php endif; ?>
                         </div>
 
@@ -94,6 +111,7 @@ $products = get_products();
             <?php endforeach; ?>
         </div>
     </div>
+</div>
 <?php else: ?>
    <!-- Enhanced Empty State -->
 <section class="max-w-screen-xl mx-auto px-4 py-16 sm:py-24">

@@ -4,29 +4,37 @@ include_once '../helper/functions.php';
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
-function add_to_cart($id)
-{
-    // Check if the product is already in the cart
-    if (array_key_exists($id, $_SESSION['cart'])) {
-        set_flash_message('warning', 'Product is already in the cart');
-    } else {
-        // FIX 1: Assign a quantity of 1 to this product ID
-        $_SESSION['cart'][$id] = 1;
 
-        // Optional: Add a success toast here!
+function add_to_cart($id, $quantity = 1)
+{
+    $quantity = max(1, (int)$quantity);
+
+    $productDetail = get_product_detail($id);
+    if ($productDetail && isset($productDetail['stockStatus']) && $productDetail['stockStatus'] === 'Out of Stock') {
+        set_flash_message('error', 'Sorry, this product is out of stock!');
+        return;
+    }
+
+    if (array_key_exists($id, $_SESSION['cart'])) {
+        $_SESSION['cart'][$id] += $quantity;
+        set_flash_message('success', 'Product quantity updated in cart successfully!');
+    } else {
+        $_SESSION['cart'][$id] = $quantity;
         set_flash_message('success', 'Product added to cart successfully!');
     }
 }
 
-// FIX 2: Check if the ID exists in the URL before processing
-if (isset($_GET['id']) && !empty($_GET['id'])) {
-    // Cast to integer for security
-    add_to_cart((int)$_GET['id']);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
+    $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 1;
+
+    if ($id > 0) {
+        add_to_cart($id, $quantity);
+    }
+} elseif (isset($_GET['id']) && !empty($_GET['id'])) {
+    add_to_cart((int)$_GET['id'], 1);
 }
 
-
-// FIX 3: Redirect the user back to where they came from
-// $_SERVER['HTTP_REFERER'] remembers the previous page. We fall back to index.php just in case.
 $redirectUrl = $_SERVER['HTTP_REFERER'] ?? '../index.php';
 header("Location: " . $redirectUrl);
-exit; // Always call exit after a redirect
+exit;

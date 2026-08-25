@@ -74,21 +74,27 @@ function logoutUser()
 
 function get_products()
 {
-    if (!file_exists('./database/products.json')) return [];
-    return json_decode(file_get_contents('./database/products.json'), true) ?: [];
+    $file = file_exists('./database/products.json') ? './database/products.json' : '../database/products.json';
+    if (!file_exists($file)) return [];
+    return json_decode(file_get_contents($file), true) ?: [];
 }
 
 function get_products_details()
 {
-    if (!file_exists('./database/product_details.json')) return [];
-    return json_decode(file_get_contents('./database/product_details.json'), true) ?: [];
+    $file = file_exists('./database/product_details.json') ? './database/product_details.json' : '../database/product_details.json';
+    if (!file_exists($file)) return [];
+    return json_decode(file_get_contents($file), true) ?: [];
 }
 
 function get_product_detail($id)
 {
-    if (!file_exists('./database/product_details.json')) return null;
-    $details = json_decode(file_get_contents('./database/product_details.json'), true);
-    return $details[$id - 1] ?? null;
+    $details = get_products_details();
+    foreach ($details as $detail) {
+        if ($detail['id'] == $id) {
+            return $detail;
+        }
+    }
+    return null;
 }
 
 function get_first_n_products($n)

@@ -148,43 +148,45 @@ foreach ($detailsData as $d) {
                 <hr class="border-slate-200 my-6">
 
                 <!-- Add to Cart Action -->
-                <div
-                    class="flex gap-4 mt-auto <?php if ($productDetail['stockStatus'] == 'Out of Stock'): ?>hidden<?php endif; ?>">
-                    <!-- Quantity Selector -->
-                    <div class="relative flex items-center max-w-[110px]">
-                        <button type="button"
-                            class="bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-s-lg p-3 h-12 focus:ring-primary-500 focus:ring-2 focus:outline-none transition-colors">
-                            <svg class="w-3 h-3 text-slate-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 18 2">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M1 1h16" />
-                            </svg>
-                        </button>
-                        <input type="text" value="1"
-                            class="bg-slate-50 border-x-0 border-slate-300 h-12 text-center text-slate-900 text-sm focus:ring-primary-500 focus:border-primary-500 block w-full py-2.5"
-                            required />
-                        <button type="button"
-                            class="bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-e-lg p-3 h-12 focus:ring-primary-500 focus:ring-2 focus:outline-none transition-colors">
-                            <svg class="w-3 h-3 text-slate-900" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 18 18">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 1v16M1 9h16" />
-                            </svg>
-                        </button>
-                    </div>
-
-                    <!-- Submit Button -->
-                    <a href='../actions/add-to-cart.php?id=<?= $productDetail['id'] ?>' class=" flex-1 text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none
-                focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-3 text-center transition-colors flex
-                items-center justify-center gap-2">
-                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                            viewBox="0 0 18 21">
-                            <path
-                                d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.184.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z" />
+                <?php if ($productDetail['stockStatus'] === 'Out of Stock'): ?>
+                    <div class="p-4 bg-red-50 text-red-700 border border-red-200 rounded-xl text-sm font-semibold flex items-center gap-2">
+                        <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
-                        Add to Cart
-                    </a>
-                </div>
+                        This product is currently out of stock.
+                    </div>
+                <?php else: ?>
+                    <form action="actions/add-to-cart.php" method="POST" class="flex items-center gap-4 mt-auto">
+                        <input type="hidden" name="id" value="<?= $productDetail['id'] ?>">
+
+                        <!-- Quantity Selector -->
+                        <div class="flex items-center border border-slate-300 rounded-xl bg-slate-50 overflow-hidden shrink-0 shadow-sm">
+                            <button type="button" onclick="let input = document.getElementById('quantity-input'); if(parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;"
+                                class="bg-slate-100 hover:bg-slate-200 text-slate-700 w-10 h-12 flex items-center justify-center font-bold text-lg focus:outline-none transition-colors">
+                                -
+                            </button>
+                            <input type="number" id="quantity-input" name="quantity" value="1" min="1"
+                                class="w-14 h-12 bg-transparent text-center text-slate-900 font-bold text-base focus:outline-none border-0 p-0 focus:ring-0"
+                                required />
+                            <button type="button" onclick="let input = document.getElementById('quantity-input'); input.value = parseInt(input.value) + 1;"
+                                class="bg-slate-100 hover:bg-slate-200 text-slate-700 w-10 h-12 flex items-center justify-center font-bold text-lg focus:outline-none transition-colors">
+                                +
+                            </button>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="flex-1 text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none
+                    focus:ring-primary-300 font-medium rounded-xl text-sm px-5 h-12 text-center transition-colors flex
+                    items-center justify-center gap-2 shadow-sm">
+                            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                viewBox="0 0 18 21">
+                                <path
+                                    d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.184.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z" />
+                            </svg>
+                            Add to Cart
+                        </button>
+                    </form>
+                <?php endif; ?>
 
             </div>
         </div>

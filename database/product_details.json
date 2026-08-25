@@ -1,1 +1,26 @@
-[]
+[
+    {
+        "id": 1,
+        "description": "Test description",
+        "gallery": [
+            "https:\/\/dummyimage.com\/600x600\/dee2e6\/6c757d.jpg"
+        ],
+        "stockStatus": "In Stock",
+        "hasOptions": false,
+        "options": null,
+        "variants": null,
+        "category": "General"
+    },
+    {
+        "id": 2,
+        "description": "Test description 2",
+        "gallery": [
+            "https:\/\/dummyimage.com\/600x600\/dee2e6\/6c757d.jpg"
+        ],
+        "stockStatus": "Out of Stock",
+        "hasOptions": true,
+        "options": null,
+        "variants": null,
+        "category": "Clothing"
+    }
+]

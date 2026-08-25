@@ -219,12 +219,20 @@ $featuredProducts = array_slice($allProducts, 0, 8);
             <!-- Products Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <?php foreach ($featuredProducts as $product): ?>
+                    <?php 
+                    $detail = get_product_detail($product['id']);
+                    $isOutOfStock = ($detail && isset($detail['stockStatus']) && $detail['stockStatus'] === 'Out of Stock');
+                    ?>
                     <div class="group bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-xl hover:border-slate-300 transition-all duration-300 overflow-hidden flex flex-col">
                         
                         <!-- Product Thumbnail & Badges -->
                         <div class="relative bg-slate-100 aspect-[4/3] overflow-hidden">
-                            <!-- Sale Badge -->
-                            <?php if (isset($product['isSale']) && $product['isSale']): ?>
+                            <!-- Sale / Out of Stock Badge -->
+                            <?php if ($isOutOfStock): ?>
+                                <span class="absolute top-3 start-3 bg-slate-900 text-white text-xs font-bold px-2.5 py-1 rounded-lg z-10 shadow-sm">
+                                    Out of Stock
+                                </span>
+                            <?php elseif (isset($product['isSale']) && $product['isSale']): ?>
                                 <span class="absolute top-3 start-3 bg-red-600 text-white text-xs font-extrabold px-2.5 py-1 rounded-lg z-10 shadow-sm">
                                     SALE
                                 </span>
@@ -280,19 +288,28 @@ $featuredProducts = array_slice($allProducts, 0, 8);
                                     Details
                                 </a>
 
-                                <?php if (isset($product['buttonType']) && $product['buttonType'] === 'options'): ?>
+                                <?php if ($isOutOfStock): ?>
+                                    <button type="button" disabled
+                                        class="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-400 bg-slate-100 rounded-xl cursor-not-allowed">
+                                        Out of stock
+                                    </button>
+                                <?php elseif (isset($product['buttonType']) && $product['buttonType'] === 'options'): ?>
                                     <a href="product.php?id=<?= $product['id'] ?>"
                                         class="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-white bg-primary-600 hover:bg-primary-700 rounded-xl shadow-sm transition-all">
                                         Options
                                     </a>
                                 <?php else: ?>
-                                    <a href="actions/add-to-cart.php?id=<?= $product['id'] ?>"
-                                        class="flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-white bg-primary-600 hover:bg-primary-700 rounded-xl shadow-sm transition-all">
-                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-                                        </svg>
-                                        Add
-                                    </a>
+                                    <form action="actions/add-to-cart.php" method="POST" class="w-full">
+                                        <input type="hidden" name="id" value="<?= $product['id'] ?>">
+                                        <input type="hidden" name="quantity" value="1">
+                                        <button type="submit"
+                                            class="w-full h-full flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-white bg-primary-600 hover:bg-primary-700 rounded-xl shadow-sm transition-all">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                                            </svg>
+                                            Add
+                                        </button>
+                                    </form>
                                 <?php endif; ?>
                             </div>
                         </div>
