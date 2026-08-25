@@ -78,6 +78,12 @@ function get_products()
     return json_decode(file_get_contents('./database/products.json'), true) ?: [];
 }
 
+function get_products_details()
+{
+    if (!file_exists('./database/product_details.json')) return [];
+    return json_decode(file_get_contents('./database/product_details.json'), true) ?: [];
+}
+
 function get_product_detail($id)
 {
     if (!file_exists('./database/product_details.json')) return null;
@@ -98,10 +104,24 @@ function numberOfProducts()
 }
 
 
-function checkExistsProduct($id, $array)
+function checkExistsProduct($id)
 {
-    if (in_array($id, array_column($array, 'id'), true)) {
-        return true;
+    $products = get_products();
+    foreach ($products as $product) {
+        if ($product['id'] == $id) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function checkExistsProductDetail($id)
+{
+    $products_details = get_products_details();
+    foreach ($products_details as $product_detail) {
+        if ($product_detail['id'] == $id) {
+            return true;
+        }
     }
     return false;
 }

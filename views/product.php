@@ -2,25 +2,23 @@
 
 include_once './helper/functions.php';
 // 1. Fetch Data
-$productsData = json_decode(file_get_contents('./database/products.json'), true);
-$detailsData = json_decode(file_get_contents('./database/product_details.json'), true);
+$productsData = get_products();
+$detailsData = get_products_details();
 $productId = (isset($_GET['id']) ? (int)$_GET['id'] : null);
 
 // 2. Find the specific product
 $baseProduct = null;
 $productDetail = null;
-$exists = checkExistsProduct($productId, $productsData);
+$exists = checkExistsProduct($productId);
+$exists_detail = checkExistsProductDetail($productId);
 foreach ($productsData as $p) {
     if ($p['id'] === $productId) $baseProduct = $p;
 }
 foreach ($detailsData as $d) {
     if ($d['id'] === $productId) $productDetail = $d;
 }
-
-echo "$exists"
-
 ?>
-<?php if ($exists): ?>
+<?php if ($exists && $exists_detail): ?>
     <div class="max-w-screen-xl mx-auto p-4 py-8">
 
         <!-- Breadcrumb -->
