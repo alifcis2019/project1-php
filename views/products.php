@@ -106,6 +106,20 @@ $products = get_products();
                             <?php endif; ?>
                         </div>
 
+                        <?php if (is_admin()): ?>
+                            <div class="flex items-center justify-between gap-2 pt-2 mt-2 border-t border-dashed border-slate-200">
+                                <a href="edit-product.php?id=<?= $product['id'] ?>"
+                                    class="flex-1 text-center py-1.5 px-2 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors">
+                                    Edit
+                                </a>
+                                <a href="actions/delete-product.php?id=<?= $product['id'] ?>"
+                                    onclick="return confirm('Are you sure you want to delete this product?');"
+                                    class="flex-1 text-center py-1.5 px-2 text-xs font-semibold text-red-700 bg-red-50 hover:bg-red-100 rounded-lg transition-colors">
+                                    Delete
+                                </a>
+                            </div>
+                        <?php endif; ?>
+
                     </div>
                 </div>
             <?php endforeach; ?>
