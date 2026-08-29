@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "description": "Esse ut tenetur modi",
+        "gallery": [
+            "https:\/\/dummyimage.com\/600x600\/dee2e6\/6c757d.jpg"
+        ],
+        "stockStatus": "In Stock",
+        "hasOptions": true,
+        "options": null,
+        "variants": null,
+        "category": "Electronics"
+    },
+    {
+        "id": 2,
+        "description": "Esse ut tenetur modi",
+        "gallery": [
+            "uploads\/1787678919_gallery_0_650fe635-0659-47b7-abbd-86a54c6e875e.jpeg",
+            "uploads\/1787678919_gallery_1_images (1).jpeg",
+            "uploads\/1787678919_gallery_2_images.jpeg"
+        ],
+        "stockStatus": "Out of Stock",
+        "hasOptions": true,
+        "options": {
+            "Notice": [
+                "To be configured later"
+            ]
+        },
+        "variants": null,
+        "category": "Electronics"
+    }
+]

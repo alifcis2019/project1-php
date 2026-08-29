@@ -1,0 +1,27 @@
+[
+    {
+        "id": "6a845e05e0842",
+        "email": "a@a.com",
+        "password": "$2y$10$f\/Q3LZBUFeb9qQ4PQ6fk\/ObbdedUuvry8MGFKXaEk7PRgnPSd9Yq."
+    },
+    {
+        "id": "6a8462d9951e8",
+        "email": "b@b.com",
+        "password": "$2y$10$M4WwsmGSCU7tvnedz9sGb.MLFRenRBeBTCvtxkJ5tvHaLZdxrDtrG"
+    },
+    {
+        "id": "6a84644e358be",
+        "email": "c@c.com",
+        "password": "$2y$10$fCHOF47NWuivIVMstG3oY.uQQPOWAOvQvCd3l6q\/i1PgSntc7w9hq"
+    },
+    {
+        "id": "6a847cddef80c",
+        "email": "test@test.com",
+        "password": "$2y$10$YWTK5ldIJ.0JjSV2K1xzm.fSAXs2ocW3gXU6cNwhObCgQ1BQDlK1K"
+    },
+    {
+        "id": "6a86269f15116",
+        "email": "alitalaatali1101995@gmail.com",
+        "password": "$2y$10$p764M3VgiAawub.lbiBa1.Lq5EKY9ZiXS0SS2h99LXKHbDMCj2Qly"
+    }
+]

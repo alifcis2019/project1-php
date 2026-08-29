@@ -14,5 +14,15 @@
         "phone": "01110548609",
         "address": "Qanatir elkhairia",
         "city": "Qalubia"
+    },
+    {
+        "id": "6a8dd16f9bcbc",
+        "email": "test@test.com",
+        "password": "$2y$10$USbpY2\/HS4sCXgnvt4X6.uagVCvG.4ddlS19jM0LLrLDIy.WdaSPK",
+        "role": "user",
+        "name": "test",
+        "phone": "01110548609",
+        "address": "Qanatir elkhairia",
+        "city": "Qalubia"
     }
 ]

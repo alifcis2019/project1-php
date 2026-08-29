@@ -107,3 +107,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header("Location: " . '../products.php');
     exit;
 }
+
+//1- size validation
+//2- image validation format
