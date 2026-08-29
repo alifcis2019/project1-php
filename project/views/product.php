@@ -134,6 +134,12 @@ foreach ($detailsData as $d) {
                     </span>
                 </div>
 
+                <!-- Quantity -->
+                <div class="mb-6">
+                    <h3 class="text-sm font-medium text-slate-900 mb-3">Quantity</h3>
+                    <span class="text-sm text-slate-600"><?= htmlspecialchars($baseProduct['quantity']) ?></span>
+                </div>
+
                 <!-- Description -->
                 <p class="text-slate-600 mb-8 leading-relaxed">
                     <?= htmlspecialchars($productDetail['description']) ?>

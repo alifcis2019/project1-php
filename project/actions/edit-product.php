@@ -91,6 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $productsList[$productIndex]['isSale'] = $isSale;
     $productsList[$productIndex]['priceDisplay'] = "$" . $currentPrice;
     $productsList[$productIndex]['originalPriceDisplay'] = $originalPrice ? "$" . $originalPrice : null;
+    $productsList[$productIndex]['quantity'] = $postData['quantity'] ?? 0;
     $productsList[$productIndex]['buttonType'] = $hasOptions ? "options" : "cart";
 
     // Update product details in product_details.json

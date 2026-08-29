@@ -76,6 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "rating" => 0,
         "priceDisplay" => "$" . $currentPrice,
         "originalPriceDisplay" => $originalPrice ? "$" . $originalPrice : null,
+        "quantity" => $postData['quantity'] ?? 0,
         "buttonType" => $hasOptions ? "options" : "cart"
     ];
 

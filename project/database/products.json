@@ -7,6 +7,7 @@
         "rating": 4,
         "priceDisplay": "$45.00",
         "originalPriceDisplay": "$966.00",
-        "buttonType": "options"
+        "buttonType": "options",
+        "quantity": "50"
     }
 ]

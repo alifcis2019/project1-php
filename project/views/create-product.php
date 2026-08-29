@@ -37,7 +37,7 @@
         </div>
 
         <h3 class="text-lg font-semibold text-slate-800 mb-4 mt-8">2. Pricing & Inventory</h3>
-        <div class="grid gap-6 mb-6 md:grid-cols-3">
+        <div class="grid gap-6 mb-6 md:grid-cols-4">
             <div>
                 <label for="current_price" class="block mb-2 text-sm font-medium text-slate-900">Current Price ($) <span
                         class="text-red-500">*</span></label>
@@ -51,6 +51,12 @@
                 <input type="number" step="0.01" id="original_price" name="product[original_price]"
                     class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
                     placeholder="e.g. before discount">
+            </div>
+            <div>
+                <label for="quantity" class="block mb-2 text-sm font-medium text-slate-900">Quantity </label>
+                <input type="number" step="1" id="quantity" name="product[quantity]"
+                    class="bg-slate-50 border border-slate-300 text-slate-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5"
+                    placeholder="e.g. 10">
             </div>
             <div>
                 <label for="stock_status" class="block mb-2 text-sm font-medium text-slate-900">Stock Status</label>
