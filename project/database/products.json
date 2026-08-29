@@ -8,15 +8,5 @@
         "priceDisplay": "$45.00",
         "originalPriceDisplay": "$966.00",
         "buttonType": "options"
-    },
-    {
-        "id": 2,
-        "name": "Clarke Torres",
-        "image": "uploads\/1787678919_main_650fe635-0659-47b7-abbd-86a54c6e875e.jpeg",
-        "isSale": true,
-        "rating": 0,
-        "priceDisplay": "$45.00",
-        "originalPriceDisplay": "$966.00",
-        "buttonType": "options"
     }
 ]

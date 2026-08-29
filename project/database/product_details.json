@@ -10,23 +10,5 @@
         "options": null,
         "variants": null,
         "category": "Electronics"
-    },
-    {
-        "id": 2,
-        "description": "Esse ut tenetur modi",
-        "gallery": [
-            "uploads\/1787678919_gallery_0_650fe635-0659-47b7-abbd-86a54c6e875e.jpeg",
-            "uploads\/1787678919_gallery_1_images (1).jpeg",
-            "uploads\/1787678919_gallery_2_images.jpeg"
-        ],
-        "stockStatus": "Out of Stock",
-        "hasOptions": true,
-        "options": {
-            "Notice": [
-                "To be configured later"
-            ]
-        },
-        "variants": null,
-        "category": "Electronics"
     }
 ]
